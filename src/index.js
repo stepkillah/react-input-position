@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import mouseActivation from "./mouseActivation";
-import touchActivation from "./touchActivation";
-import { MOUSE_ACTIVATION, TOUCH_ACTIVATION } from "./constants";
-import utils from "./utils";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import mouseActivation from './mouseActivation';
+import touchActivation from './touchActivation';
+import { MOUSE_ACTIVATION, TOUCH_ACTIVATION } from './constants';
+import utils from './utils';
 
 const defaultState = {
   active: false,
@@ -87,7 +87,7 @@ class ReactInputPosition extends Component {
     style: {},
     minUpdateSpeedInMs: 1,
     itemMovementMultiplier: 1,
-    cursorStyle: "crosshair",
+    cursorStyle: 'crosshair',
     mouseActivationMethod: MOUSE_ACTIVATION.CLICK,
     touchActivationMethod: TOUCH_ACTIVATION.TAP,
     mouseDownAllowOutside: false
@@ -128,11 +128,11 @@ class ReactInputPosition extends Component {
   checkPassiveEventSupport() {
     this.supportsPassive = false;
     try {
-      const options = Object.defineProperty({}, "passive", {
+      const options = Object.defineProperty({}, 'passive', {
         get: () => (this.supportsPassive = true)
       });
-      window.addEventListener("testPassive", null, options);
-      window.removeEventListener("testPassive", null, options);
+      window.addEventListener('testPassive', null, options);
+      window.removeEventListener('testPassive', null, options);
     } catch (e) {}
   }
 
@@ -140,7 +140,7 @@ class ReactInputPosition extends Component {
     const { onUpdate } = this.props;
 
     let activationCallback;
-    if (changes.hasOwnProperty("active")) {
+    if (changes.hasOwnProperty('active')) {
       if (changes.active) {
         activationCallback = this.props.onActivate;
       } else {
@@ -178,7 +178,7 @@ class ReactInputPosition extends Component {
     const clonedState = {};
 
     for (let key in state) {
-      if (typeof state[key] === "object") {
+      if (typeof state[key] === 'object') {
         clonedState[key] = { ...state[key] };
       } else {
         clonedState[key] = state[key];
@@ -195,12 +195,7 @@ class ReactInputPosition extends Component {
   refreshPosition() {
     const { trackItemPosition, centerItemOnLoad } = this.props;
 
-    this.setPosition(
-      { x: 0, y: 0 },
-      trackItemPosition,
-      false,
-      centerItemOnLoad
-    );
+    this.setPosition({ x: 0, y: 0 }, trackItemPosition, false, centerItemOnLoad);
   }
 
   setInputInteractionMethods() {
@@ -209,8 +204,7 @@ class ReactInputPosition extends Component {
   }
 
   setMouseInteractionMethods() {
-    const mouseInteractionMethods =
-      mouseActivation[this.props.mouseActivationMethod];
+    const mouseInteractionMethods = mouseActivation[this.props.mouseActivationMethod];
     this.mouseHandlers = [];
 
     for (let key in mouseInteractionMethods) {
@@ -222,8 +216,7 @@ class ReactInputPosition extends Component {
   }
 
   setTouchInteractionMethods() {
-    const touchInteractionMethods =
-      touchActivation[this.props.touchActivationMethod];
+    const touchInteractionMethods = touchActivation[this.props.touchActivationMethod];
     this.touchHandlers = [];
 
     for (let key in touchInteractionMethods) {
@@ -242,12 +235,7 @@ class ReactInputPosition extends Component {
     if (this.props.minUpdateSpeedInMs && !this.refresh) return;
     this.refresh = false;
 
-    const {
-      left,
-      top,
-      width,
-      height
-    } = this.containerRef.current.getBoundingClientRect();
+    const { left, top, width, height } = this.containerRef.current.getBoundingClientRect();
 
     const {
       trackItemPosition,
@@ -432,13 +420,13 @@ class ReactInputPosition extends Component {
   }
 
   addMouseEventListeners() {
-    this.mouseHandlers.forEach(mouse => {
+    this.mouseHandlers.forEach((mouse) => {
       this.containerRef.current.addEventListener(mouse.event, mouse.handler);
     });
   }
 
   addTouchEventListeners() {
-    this.touchHandlers.forEach(touch => {
+    this.touchHandlers.forEach((touch) => {
       this.containerRef.current.addEventListener(
         touch.event,
         touch.handler,
@@ -448,13 +436,13 @@ class ReactInputPosition extends Component {
   }
 
   removeMouseEventListeners() {
-    this.mouseHandlers.forEach(mouse => {
+    this.mouseHandlers.forEach((mouse) => {
       this.containerRef.current.removeEventListener(mouse.event, mouse.handler);
     });
   }
 
   removeTouchEventListeners() {
-    this.touchHandlers.forEach(touch => {
+    this.touchHandlers.forEach((touch) => {
       this.containerRef.current.removeEventListener(
         touch.event,
         touch.handler,
@@ -464,31 +452,25 @@ class ReactInputPosition extends Component {
   }
 
   addOtherEventListeners() {
-    window.addEventListener("resize", this.handleResize);
-    window.addEventListener("load", this.onLoadRefresh);
+    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('load', this.onLoadRefresh);
   }
 
   removeOtherEventListeners() {
-    window.removeEventListener("resize", this.handleResize);
-    window.removeEventListener("load", this.onLoadRefresh);
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('load', this.onLoadRefresh);
   }
 
   render() {
-    const {
-      style,
-      className,
-      children,
-      cursorStyle,
-      cursorStyleActive
-    } = this.props;
+    const { style, className, children, cursorStyle, cursorStyleActive } = this.props;
     const { active } = this.getState();
 
     const combinedStyle = {
       ...style,
-      WebkitUserSelect: "none",
-      MozUserSelect: "none",
-      msUserSelect: "none",
-      userSelect: "none",
+      WebkitUserSelect: 'none',
+      MozUserSelect: 'none',
+      msUserSelect: 'none',
+      userSelect: 'none',
       cursor: active ? cursorStyleActive || cursorStyle : cursorStyle
     };
 

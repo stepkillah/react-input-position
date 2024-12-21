@@ -1,7 +1,7 @@
-import { Children, cloneElement } from "react";
+import { Children, cloneElement } from 'react';
 
 function isReactComponent(element) {
-  return typeof element.type === "function";
+  return typeof element.type === 'function';
 }
 
 function decorateChild(child, props) {
@@ -13,7 +13,7 @@ function shouldDecorateChild(child) {
 }
 
 function decorateChildren(children, props) {
-  return Children.map(children, child => {
+  return Children.map(children, (child) => {
     return shouldDecorateChild(child) ? decorateChild(child, props) : child;
   });
 }
@@ -45,16 +45,7 @@ function limitPosition(minX, maxX, minY, maxY, itemPosition = {}) {
   return position;
 }
 
-function createAdjustedLimits(
-  minX,
-  maxX,
-  minY,
-  maxY,
-  elemDimensions = {},
-  itemDimensions = {},
-  limitBySize,
-  internal
-) {
+function createAdjustedLimits(minX, maxX, minY, maxY, elemDimensions = {}, itemDimensions = {}, limitBySize, internal) {
   const limits = { minX, maxX, minY, maxY };
 
   if (limits.maxX < 0) {
@@ -75,10 +66,7 @@ function createAdjustedLimits(
     limits.maxX = elemDimensions.width - itemDimensions.width;
     limits.maxY = elemDimensions.height - itemDimensions.height;
 
-    if (
-      itemDimensions.width > elemDimensions.width ||
-      itemDimensions.height > elemDimensions.height
-    ) {
+    if (itemDimensions.width > elemDimensions.width || itemDimensions.height > elemDimensions.height) {
       limits.maxX = 0;
       limits.maxY = 0;
     }
@@ -88,10 +76,7 @@ function createAdjustedLimits(
     limits.minX = -itemDimensions.width + elemDimensions.width;
     limits.minY = -itemDimensions.height + elemDimensions.height;
 
-    if (
-      itemDimensions.width < elemDimensions.width ||
-      itemDimensions.height < elemDimensions.height
-    ) {
+    if (itemDimensions.width < elemDimensions.width || itemDimensions.height < elemDimensions.height) {
       limits.minX = 0;
       limits.minY = 0;
     }
@@ -100,12 +85,7 @@ function createAdjustedLimits(
   return limits;
 }
 
-function calculateItemPosition(
-  itemPosition = {},
-  prevActivePosition = {},
-  activePosition = {},
-  multiplier
-) {
+function calculateItemPosition(itemPosition = {}, prevActivePosition = {}, activePosition = {}, multiplier) {
   const newItemPosition = { ...itemPosition };
 
   const moveX = (activePosition.x - prevActivePosition.x) * multiplier;
@@ -117,11 +97,7 @@ function calculateItemPosition(
   return newItemPosition;
 }
 
-function alignItemOnPosition(
-  elemDimensions = {},
-  itemDimensions = {},
-  position
-) {
+function alignItemOnPosition(elemDimensions = {}, itemDimensions = {}, position) {
   const oldMaxX = elemDimensions.width;
   const newMaxX = -(itemDimensions.width || 0) + elemDimensions.width;
   const oldMaxY = elemDimensions.height;
@@ -133,16 +109,8 @@ function alignItemOnPosition(
   };
 }
 
-function centerItemOnPosition(
-  elemDimensions = {},
-  itemDimensions = {},
-  position
-) {
-  const itemPosition = alignItemOnPosition(
-    elemDimensions,
-    itemDimensions,
-    position
-  );
+function centerItemOnPosition(elemDimensions = {}, itemDimensions = {}, position) {
+  const itemPosition = alignItemOnPosition(elemDimensions, itemDimensions, position);
 
   itemPosition.x += elemDimensions.width / 2 - position.x;
   itemPosition.y += elemDimensions.height / 2 - position.y;

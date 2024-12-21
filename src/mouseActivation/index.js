@@ -1,7 +1,7 @@
-import click from "./click";
-import doubleClick from "./doubleClick";
-import hover from "./hover";
-import mouseDown from "./mouseDown";
+import click from './click';
+import doubleClick from './doubleClick';
+import hover from './hover';
+import mouseDown from './mouseDown';
 
 export default {
   click,

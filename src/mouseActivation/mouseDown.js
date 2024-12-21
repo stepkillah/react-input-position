@@ -1,4 +1,4 @@
-import utils from "../utils";
+import utils from '../utils';
 
 function mouseDown(e) {
   const position = { x: e.clientX, y: e.clientY };
@@ -45,7 +45,7 @@ function mouseLeave() {
 
 function addRemoveOutsideHandlers(add) {
   this.mouseHandlers
-    .filter(h => h.event === "mouseup" || h.event === "mousemove")
+    .filter((h) => h.event === 'mouseup' || h.event === 'mousemove')
     .forEach(({ event, handler }) => {
       if (add) {
         window.addEventListener(event, handler);

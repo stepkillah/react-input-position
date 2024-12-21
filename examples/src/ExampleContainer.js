@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const ExampleContainer = props => {
+const ExampleContainer = (props) => {
   const { title, children } = props;
 
   return (
